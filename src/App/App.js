@@ -3,6 +3,8 @@ import React from 'react'
 import logo from '../logo.svg'
 import './App.css'
 import SideMenu from '../components/SideMenu'
+import PageHeader from '../components/PageHeader'
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import {
   createMuiTheme,
   CssBaseline,
@@ -27,6 +29,18 @@ const theme = createMuiTheme({
       default: '#f4f5fd',
     },
   },
+  overrides: {
+    MuiAppBar: {
+      root: {
+        transform: 'translateZ(0)',
+      },
+    },
+  },
+  props: {
+    MuiIconButton: {
+      disableRipple: true,
+    },
+  },
 })
 
 const useStyles = makeStyles({
@@ -44,6 +58,11 @@ function App() {
 
         <div className={classes.appMain}>
           <Header></Header>
+          <PageHeader
+            title='Rohan Paspallu'
+            subTitle='live life to the fullest'
+            icon={<PeopleOutlineIcon fontSize='large' />}
+          ></PageHeader>
         </div>
         <CssBaseline />
       </ThemeProvider>
