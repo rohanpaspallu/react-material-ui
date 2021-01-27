@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 import { Widgets } from '@material-ui/icons'
 import Header from '../components/Header'
+import Employees from '../pages/Employees/Employees'
 
 const theme = createMuiTheme({
   palette: {
@@ -58,11 +59,8 @@ function App() {
 
         <div className={classes.appMain}>
           <Header></Header>
-          <PageHeader
-            title='Rohan Paspallu'
-            subTitle='live life to the fullest'
-            icon={<PeopleOutlineIcon fontSize='large' />}
-          ></PageHeader>
+
+          <Employees></Employees>
         </div>
         <CssBaseline />
       </ThemeProvider>
