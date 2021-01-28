@@ -11,7 +11,7 @@ import {
 import React, { useState, useEffect } from 'react'
 import { useForm, Form } from '../../components/useForm'
 import Controls from '../../components/controls/Controls'
-
+import * as employeeService from '../../services/employeeService'
 const genderItems = [
   { id: 'male', title: 'Male' },
   { id: 'female', title: 'Female' },
@@ -32,6 +32,8 @@ const initialFValues = {
 }
 export default function EmployeeForm() {
   const { values, setValues, handleChange } = useForm(initialFValues)
+
+  console.log(employeeService.getDepartmentCollection)
 
   return (
     <Form>
@@ -59,6 +61,14 @@ export default function EmployeeForm() {
             onChange={handleChange}
             items={genderItems}
           ></Controls.RadioGroup>
+
+          <Controls.Select
+            name='departmentId'
+            label='Department'
+            value={values.departmentId}
+            onChange={handleChange}
+            options={employeeService.getDepartmentCollection}
+          ></Controls.Select>
         </Grid>
       </Grid>
     </Form>
