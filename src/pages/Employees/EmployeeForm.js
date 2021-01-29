@@ -70,6 +70,13 @@ export default function EmployeeForm() {
             onChange={handleChange}
             options={employeeService.getDepartmentCollection}
           ></Controls.Select>
+
+          <Controls.DatePicker
+            name='hireDate'
+            label='Hire Date'
+            value={values.hireDate}
+            onChange={handleChange}
+          ></Controls.DatePicker>
           <Controls.CheckBox
             name='isPermanent'
             label='Permanent Employee'
