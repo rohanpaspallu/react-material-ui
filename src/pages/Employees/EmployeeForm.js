@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm, Form } from '../../components/useForm'
 import Controls from '../../components/controls/Controls'
 import * as employeeService from '../../services/employeeService'
+
 const genderItems = [
   { id: 'male', title: 'Male' },
   { id: 'female', title: 'Female' },
@@ -69,6 +70,12 @@ export default function EmployeeForm() {
             onChange={handleChange}
             options={employeeService.getDepartmentCollection}
           ></Controls.Select>
+          <Controls.CheckBox
+            name='isPermanent'
+            label='Permanent Employee'
+            value={values.isPermanent}
+            onChange={handleChange}
+          ></Controls.CheckBox>
         </Grid>
       </Grid>
     </Form>
