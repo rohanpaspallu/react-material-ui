@@ -6,7 +6,7 @@ import {
 import React from 'react'
 
 export default function CheckBox(props) {
-  const { name, label, onChange, value } = props
+  const { name, label, value, onChange } = props
 
   const convertToDefaultEventPara = (name, value) => ({
     target: {
@@ -22,9 +22,10 @@ export default function CheckBox(props) {
             name={name}
             color='primary'
             checked={value}
-            onChange={(e) =>
+            onChange={(e) => {
+              console.log(e.target.checked)
               onChange(convertToDefaultEventPara(name, e.target.checked))
-            }
+            }}
           >
             {console.log('name is :  ' + name + 'value is : ' + value)}
           </MuiCheckbox>

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 export function useForm(initialFValues) {
   const [values, setValues] = useState(initialFValues)
   const handleChange = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
