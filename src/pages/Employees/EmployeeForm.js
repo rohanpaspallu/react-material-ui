@@ -13,6 +13,8 @@ import { useForm, Form } from '../../components/useForm'
 import Controls from '../../components/controls/Controls'
 import * as employeeService from '../../services/employeeService'
 
+import MaskedInput from 'react-text-mask'
+
 const genderItems = [
   { id: 'male', title: 'Male' },
   { id: 'female', title: 'Female' },
@@ -53,6 +55,20 @@ export default function EmployeeForm() {
             value={values.email}
             onChange={handleChange}
           ></Controls.Input>
+
+          <Controls.Input
+            name='mobile'
+            label='Mobile Number'
+            value={values.mobile}
+            onChange={handleChange}
+          ></Controls.Input>
+
+          <Controls.Input
+            name='city'
+            label='City'
+            value={values.city}
+            onChange={handleChange}
+          ></Controls.Input>
         </Grid>
         <Grid item xs={6}>
           <Controls.RadioGroup
@@ -83,6 +99,22 @@ export default function EmployeeForm() {
             value={values.isPermanent}
             onChange={handleChange}
           ></Controls.CheckBox>
+
+          <div>
+            <Controls.Button
+              //   variant='contained'
+              //   color='primary'
+              //   size='large'
+              text='Submit'
+              type='submit'
+            ></Controls.Button>
+            <Controls.Button
+              //   variant='contained'
+              color='default'
+              //   size='large'
+              text='Reset'
+            ></Controls.Button>
+          </div>
         </Grid>
       </Grid>
     </Form>
