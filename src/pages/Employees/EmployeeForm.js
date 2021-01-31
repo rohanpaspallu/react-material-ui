@@ -34,22 +34,29 @@ const initialFValues = {
   isPermanent: false,
 }
 export default function EmployeeForm() {
-  const validate = () => {
-    let temp = {}
-    temp.fullName = values.fullName ? '' : 'This field is required'
-    temp.email = /$^|.+@.+..+/.test(values.email) ? '' : 'Email is not valid'
-    temp.mobile =
-      values.mobile.length > 9 && values.mobile.length < 11
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors }
+    if ('fullName' in fieldValues)
+      temp.fullName = fieldValues.fullName ? '' : 'This field is required'
+    if ('email' in fieldValues)
+      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
         ? ''
-        : 'Mobile number should have 10 characters'
-    temp.departmentId =
-      values.departmentId.length != 0 ? '' : 'This field is required'
+        : 'Email is not valid'
+    if ('mobile' in fieldValues) {
+      temp.mobile =
+        fieldValues.mobile.length > 9 && fieldValues.mobile.length < 11
+          ? ''
+          : 'Mobile number should have 10 characters'
+    }
+    if ('departmentId' in fieldValues)
+      temp.departmentId =
+        fieldValues.departmentId.length != 0 ? '' : 'This field is required'
 
     setErrors({
       ...temp,
     })
 
-    return Object.values(temp).every((x) => x == '')
+    if (fieldValues == values) return Object.values(temp).every((x) => x == '')
   }
 
   const {
@@ -59,7 +66,7 @@ export default function EmployeeForm() {
     setErrors,
     handleChange,
     resetForm,
-  } = useForm(initialFValues)
+  } = useForm(initialFValues, true, validate)
 
   console.log(employeeService.getDepartmentCollection)
 
