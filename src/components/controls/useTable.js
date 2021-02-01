@@ -7,7 +7,7 @@ import {
   TableRow,
   TableSortLabel,
 } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const useStyles = makeStyles((theme) => ({
   table: {
