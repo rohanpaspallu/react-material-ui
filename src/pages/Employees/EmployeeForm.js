@@ -73,7 +73,9 @@ export default function EmployeeForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validate()) {
-      window.alert('hello rohan')
+      //   window.alert('hello rohan')
+      employeeService.insertEmployee(values)
+      resetForm()
     } else {
       window.alert('some data missing')
     }
