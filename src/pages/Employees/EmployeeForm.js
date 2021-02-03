@@ -33,7 +33,8 @@ const initialFValues = {
   hireDate: new Date(),
   isPermanent: false,
 }
-export default function EmployeeForm() {
+export default function EmployeeForm(props) {
+  const { addOrEdit } = props
   const validate = (fieldValues = values) => {
     let temp = { ...errors }
     if ('fullName' in fieldValues)
@@ -74,8 +75,7 @@ export default function EmployeeForm() {
     e.preventDefault()
     if (validate()) {
       //   window.alert('hello rohan')
-      employeeService.insertEmployee(values)
-      resetForm()
+      addOrEdit(values, resetForm)
     } else {
       window.alert('some data missing')
     }
