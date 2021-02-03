@@ -133,7 +133,7 @@ export default function EmployeeForm() {
             label='Department'
             value={values.departmentId}
             onChange={handleChange}
-            options={employeeService.getDepartmentCollection}
+            options={employeeService.getDepartmentCollection()}
             error={errors.departmentId}
           ></Controls.Select>
 

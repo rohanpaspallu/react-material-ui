@@ -83,6 +83,7 @@ export default function Employees() {
       ></PageHeader>
 
       <Paper elevation={3} className={classes.pageContent}>
+        <EmployeeForm></EmployeeForm>
         <Toolbar>
           <Controls.Input
             label='Search Employee'
@@ -113,7 +114,6 @@ export default function Employees() {
           </TableBody>
         </TblContainer>
         <TblPagination></TblPagination>
-        {/* <EmployeeForm></EmployeeForm> */}
       </Paper>
     </>
   )
