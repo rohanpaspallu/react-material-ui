@@ -7,6 +7,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import AddIcon from '@material-ui/icons/Add'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import CloseIcon from '@material-ui/icons/Close'
+import Notification from '../../components/controls/Notification'
 import {
   InputAdornment,
   ListItemSecondaryAction,
@@ -20,7 +21,7 @@ import {
 } from '@material-ui/core'
 import useTable from '../../components/controls/useTable'
 import * as employeeService from '../../services/employeeService'
-import { EditOutlined } from '@material-ui/icons'
+import { EditOutlined, FlashOnRounded } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -66,6 +67,7 @@ export default function Employees() {
     },
   })
   const [openPopup, setOpenPopup] = useState(false)
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
   console.log(records)
   const {
     TblContainer,
@@ -96,6 +98,11 @@ export default function Employees() {
     setRecordForEdit(null)
     setOpenPopup(false)
     setRecords(employeeService.getAllEmployees())
+    setNotify({
+      isOpen: true,
+      message: 'submitted successfully',
+      type: 'success',
+    })
   }
 
   const openInPopup = (item) => {
@@ -112,7 +119,7 @@ export default function Employees() {
       ></PageHeader>
 
       <Paper elevation={3} className={classes.pageContent}>
-        <EmployeeForm></EmployeeForm>
+        {/* <EmployeeForm></EmployeeForm> */}
         <Toolbar>
           <Controls.Input
             label='Search Employee'
@@ -178,6 +185,7 @@ export default function Employees() {
           addOrEdit={addOrEdit}
         ></EmployeeForm>
       </Controls.Popup>
+      <Notification notify={notify} setNotify={setNotify} />
     </>
   )
 }
