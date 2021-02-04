@@ -58,6 +58,7 @@ const headCells = [
 
 export default function Employees() {
   const classes = useStyles()
+  const [recordForEdit, setRecordForEdit] = useState(null)
   const [records, setRecords] = useState(employeeService.getAllEmployees)
   const [filterFn, setFilterFn] = useState({
     fn: (items) => {
@@ -86,11 +87,22 @@ export default function Employees() {
   }
 
   const addOrEdit = (employee, resetForm) => {
-    employeeService.insertEmployee(employee)
+    if (employee.id == 0) {
+      employeeService.insertEmployee(employee)
+    } else {
+      employeeService.updateEmployee(employee)
+    }
     resetForm()
+    setRecordForEdit(null)
     setOpenPopup(false)
     setRecords(employeeService.getAllEmployees())
   }
+
+  const openInPopup = (item) => {
+    setRecordForEdit(item)
+    setOpenPopup(true)
+  }
+
   return (
     <>
       <PageHeader
@@ -120,7 +132,10 @@ export default function Employees() {
             className={classes.newButton}
             variant='outlined'
             startIcon={<AddIcon />}
-            onClick={() => setOpenPopup(true)}
+            onClick={() => {
+              setOpenPopup(true)
+              setRecordForEdit(null)
+            }}
           ></Controls.Button>
         </Toolbar>
         <TblContainer>
@@ -134,7 +149,12 @@ export default function Employees() {
                   <TableCell>{record.mobile}</TableCell>
                   <TableCell>{record.department}</TableCell>
                   <TableCell>
-                    <Controls.ActionButton color='primary'>
+                    <Controls.ActionButton
+                      color='primary'
+                      onClick={() => {
+                        openInPopup(record)
+                      }}
+                    >
                       <EditOutlinedIcon fontSize='small' />
                     </Controls.ActionButton>
                     <Controls.ActionButton color='secondary'>
@@ -153,7 +173,10 @@ export default function Employees() {
         setOpenPopup={setOpenPopup}
         title='Employee Form'
       >
-        <EmployeeForm addOrEdit={addOrEdit}></EmployeeForm>
+        <EmployeeForm
+          recordForEdit={recordForEdit}
+          addOrEdit={addOrEdit}
+        ></EmployeeForm>
       </Controls.Popup>
     </>
   )

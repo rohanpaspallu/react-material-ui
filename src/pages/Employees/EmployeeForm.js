@@ -34,7 +34,7 @@ const initialFValues = {
   isPermanent: false,
 }
 export default function EmployeeForm(props) {
-  const { addOrEdit } = props
+  const { addOrEdit, recordForEdit } = props
   const validate = (fieldValues = values) => {
     let temp = { ...errors }
     if ('fullName' in fieldValues)
@@ -80,6 +80,10 @@ export default function EmployeeForm(props) {
       window.alert('some data missing')
     }
   }
+
+  useEffect(() => {
+    if (recordForEdit != null) setValues({ ...recordForEdit })
+  }, [recordForEdit])
 
   return (
     <Form onSubmit={handleSubmit}>
