@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import CloseIcon from '@material-ui/icons/Close'
 import Notification from '../../components/controls/Notification'
+import ConfirmDialog from '../../components/controls/ConfirmDialog'
 import {
   InputAdornment,
   ListItemSecondaryAction,
@@ -68,6 +69,11 @@ export default function Employees() {
   })
   const [openPopup, setOpenPopup] = useState(false)
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: '',
+    subTitle: '',
+  })
   console.log(records)
   const {
     TblContainer,
@@ -111,15 +117,14 @@ export default function Employees() {
   }
 
   const onDelete = (id) => {
-    if (window.confirm('are you sure to delete this record?')) {
-      employeeService.deleteEmployee(id)
-      setRecords(employeeService.getAllEmployees())
-      setNotify({
-        isOpen: true,
-        message: 'deleted successfully',
-        type: 'error',
-      })
-    }
+    setConfirmDialog({ ...confirmDialog, isOpen: false })
+    employeeService.deleteEmployee(id)
+    setRecords(employeeService.getAllEmployees())
+    setNotify({
+      isOpen: true,
+      message: 'deleted successfully',
+      type: 'error',
+    })
   }
   return (
     <>
@@ -177,7 +182,17 @@ export default function Employees() {
                     </Controls.ActionButton>
                     <Controls.ActionButton
                       color='secondary'
-                      onClick={() => onDelete(record.id)}
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: ' Are you sure to delete the item ?',
+                          subTitle: 'You cannot undo this operation',
+                          onConfirm: () => {
+                            onDelete(record.id)
+                          },
+                        })
+                        // onDelete(record.id)
+                      }}
                     >
                       <CloseIcon fontSize='small' />
                     </Controls.ActionButton>
@@ -200,6 +215,10 @@ export default function Employees() {
         ></EmployeeForm>
       </Controls.Popup>
       <Notification notify={notify} setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   )
 }
